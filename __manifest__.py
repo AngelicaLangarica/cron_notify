@@ -13,6 +13,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/cron_notify_view.xml',
+        'data/mail_template.xml',
     
     ],
     'application': True,

@@ -19,6 +19,9 @@
             <field name="model">cron.notify</field>
             <field name="arch" type="xml">
                 <form string="Aviso Recurrente">
+                    <header>
+                        <button string="Crear Cron" name="create_cron" type="object" class="oe_highlight" attrs="{'invisible': [('cron_id', 'not in', ['', False])]}"/>
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
