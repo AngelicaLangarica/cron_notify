@@ -30,8 +30,8 @@
                         </div>
                         <group>
                             <group>
-                                <field name="email_template" />
                                 <field name="model_name" />
+                                <field name="email_template" domain="[('model_id', '=', model_name)]"  />
                                 <label for="interval_number" />
                                 <div>
                                     <field name="interval_number" class="oe_inline" attrs="{'readonly': [('cron_id', 'not in', ['', False])]}"/>
@@ -41,7 +41,7 @@
                             
                             <group>
                                 <field name="start_date" attrs="{'readonly': [('cron_id', 'not in', ['', False])]}"/>
-                                <field name="users" widget="many2many_tags" attrs="{'readonly': [('cron_id', 'not in', ['', False])]}"/>
+                                <field name="users" attrs="{'readonly': [('cron_id', 'not in', ['', False])]}"/>
                                 <field name="cron_id" />
                             </group>
                         </group>

@@ -11,13 +11,13 @@ class CronNotify(models.Model):
     _description = 'Cron Notify'
 
     name = fields.Char(string="Aviso", required=True)
-    email_template = fields.Many2one('mail.template', string="Plantilla de correo", required=True, readonly=True, default=lambda self: self.env.ref('cron_notify.email_sent_notify').id)
-    model_name = fields.Many2one('ir.model', string="Modelo", required=True, ondelete='cascade', related="email_template.model_id")
+    email_template = fields.Many2one('mail.template', string="Plantilla de correo", required=True) #, default=lambda self: self.env.ref('cron_notify.email_sent_notify').id
+    model_name = fields.Many2one('ir.model', string="Modelo", required=True, ondelete='cascade', readonly=True, default=lambda self: self.env.ref('cron_notify.email_sent_notify').model_id)
     start_date = fields.Datetime(string="Fecha de inicio", default=datetime.today(), required=True)
     interval_number = fields.Integer(string="Ejecutar cada", required=True)
     interval_type = fields.Selection([('minutes','Minutos'),('hours','Horas'),('days','Días'),('weeks','Semanas'),('months','Meses')], default="days", string="", required=True)
     cron_id = fields.Many2one('ir.cron', string="Cron", readonly=True)
-    users = fields.Many2many('res.partner', string="Usuarios a notificar", required=True)
+    users = fields.Many2one('mailing.list', string="Lista de usuarios", required=True)
     company_id = fields.Many2one('res.company', string="Compañia", default=lambda self: self.env.company)
 
     def create_cron(self):
@@ -43,7 +43,8 @@ class CronNotify(models.Model):
     def sent_mail_notify(self):
         for item in self.search([]).filtered(lambda x: x.start_date.date() == datetime.today().date()): 
             values = item.email_template.generate_email(item.id, ['subject', 'email_from', 'email_to','body_html'])
-            for user in item.users:
+            users = self.env['mailing.contact'].sudo().search([('list_ids', 'in', item.users.id)])
+            for user in users:
                 values['email_to'] = user.email or ''
                 mail = self.env['mail.mail'].create(values)
                 try:

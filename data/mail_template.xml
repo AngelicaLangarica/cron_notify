@@ -2,16 +2,16 @@
 <flectra>
     <data>
     
-        <record id="email_sent_notify" model="mail.template">
-            <field name="name">Aviso de Pago</field>
-            <field name="model_id" ref="model_cron_notify" />
-            <field name="subject">Aviso de pago de servicio</field>
-            <field name="email_from">${(object.company_id.email_formatted or '') | safe}</field>
-            <field name="email_to">${(object.users.mapped('email') or '') | safe}</field>
-            <field name="body_html" type="xml">
-               <div style="margin:0px;padding: 0px; font-size: 13px;">
-                  <p style="padding: 0px; font-size: 13px;"><br></br></p>
-               </div>
+      <record id="email_sent_notify" model="mail.template">
+         <field name="name">Aviso de Pago</field>
+         <field name="model_id" ref="model_cron_notify" />
+         <field name="subject">Aviso de pago de servicio</field>
+         <field name="email_from">${(object.company_id.email_formatted or '') | safe}</field>
+         <field name="email_to">${safe}</field>
+         <field name="body_html" type="xml">
+            <div style="margin:0px;padding: 0px; font-size: 13px;">
+               <p style="padding: 0px; font-size: 13px;"><br></br></p>
+            </div>
                <table style="padding-top:16px;background-color: #BEBEBE; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;" cellspacing="0" cellpadding="0" border="0">
                   <tbody>
                     <tr>
