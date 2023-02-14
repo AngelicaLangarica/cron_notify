@@ -9,7 +9,7 @@
     'website': 'https://lucion.mx',
     'category': 'Tools',
     'version': '1.0',
-    'depends': ['base','mail'],
+    'depends': ['base','mass_mailing'],
     'data': [
         'security/ir.model.access.csv',
         'views/cron_notify_view.xml',

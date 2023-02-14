@@ -21,6 +21,7 @@
                 <form string="Aviso Recurrente">
                     <header>
                         <button string="Crear Cron" name="create_cron" type="object" class="oe_highlight" attrs="{'invisible': [('cron_id', 'not in', ['', False])]}"/>
+                        <button string="Eliminar Cron" name="delete_cron" type="object" class="oe_highlight" attrs="{'invisible': [('cron_id', 'in', ['', False])]}"/>
                     </header>
                     <sheet>
                         <div class="oe_title">
@@ -31,16 +32,16 @@
                             <group>
                                 <field name="email_template" />
                                 <field name="model_name" />
-                                <label for="interval_number"/>
+                                <label for="interval_number" />
                                 <div>
-                                    <field name="interval_number" class="oe_inline" />
-                                    <field name="interval_type" />
+                                    <field name="interval_number" class="oe_inline" attrs="{'readonly': [('cron_id', 'not in', ['', False])]}"/>
+                                    <field name="interval_type" attrs="{'readonly': [('cron_id', 'not in', ['', False])]}" />
                                 </div>
                             </group>
                             
                             <group>
-                                <field name="start_date" />
-                                <field name="users" widget="many2many_tags"/>
+                                <field name="start_date" attrs="{'readonly': [('cron_id', 'not in', ['', False])]}"/>
+                                <field name="users" widget="many2many_tags" attrs="{'readonly': [('cron_id', 'not in', ['', False])]}"/>
                                 <field name="cron_id" />
                             </group>
                         </group>
